@@ -13,19 +13,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null){
-            Toast.makeText(getApplicationContext(), "Первый запуск!", Toast.LENGTH_SHORT).show();
+            makeToast("Первый запуск!");
         }
         else{
-            Toast.makeText(this, "Повторный запуск!", Toast.LENGTH_SHORT).show();
+            makeToast("Повторный запуск!");
         }
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        Toast.makeText(getApplicationContext(), "on Start", Toast.LENGTH_SHORT).show();
+        makeToast("ON Start");
     }
+
+
 
     private void makeToast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
