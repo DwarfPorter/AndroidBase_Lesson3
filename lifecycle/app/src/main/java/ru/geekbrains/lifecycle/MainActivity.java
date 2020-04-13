@@ -12,9 +12,13 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String COUNTER = "COUNTER";
     private static final String LIFECYCLE = "LIFE_CYCLE";
 
     private int counter = 0;
+
+    private EditText etext;
+    private TextView text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +32,14 @@ public class MainActivity extends AppCompatActivity {
             makeToast("Повторный запуск!");
         }
 
-        final EditText etext = findViewById(R.id.editText);
-        final TextView text = findViewById(R.id.textView);
+        etext = findViewById(R.id.editText);
+        text = findViewById(R.id.textView);
 
         findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 counter++;
-                etext.setText(((Integer)counter).toString());
-                text.setText(((Integer)counter).toString());
+                setTexts();
             }
         });
     }
@@ -81,12 +84,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         makeToast("Повторный запуск onRestoreInstanceState");
+        counter = savedInstanceState.getInt(COUNTER);
+        setTexts();
+    }
+
+    private void setTexts() {
+        etext.setText(((Integer) counter).toString());
+        text.setText(((Integer) counter).toString());
     }
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         makeToast("Сохранение данных onSaveInstanceState");
+        outState.putInt(COUNTER, counter);
     }
 
     private void makeToast(String message){
