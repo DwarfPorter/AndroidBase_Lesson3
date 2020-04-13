@@ -5,6 +5,15 @@ public final class MainPresenter {
 
     private static final Object syncObj = new Object();
 
+    public static MainPresenter getInstance(){
+        synchronized (syncObj){
+            if (instance == null){
+                instance = new MainPresenter();
+            }
+            return instance;
+        }
+    }
+
     private int counter;
 
     private MainPresenter(){
@@ -21,13 +30,6 @@ public final class MainPresenter {
         return counter;
     }
 
-    public static MainPresenter getInstance(){
-        synchronized (syncObj){
-            if (instance == null){
-                instance = new MainPresenter();
-            }
-            return instance;
-        }
-    }
+
 
 }
